@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音楽団体 おとたね | 出張演奏・ご依頼受付</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #79a888;
+      --primary-light: #f0f7f2;
+      --secondary-color: #f4ab6a;
+      --secondary-light: #fff8f0;
+      --text-color: #4a4a4a;
+      --bg-color: #faf8f5;
+      --card-bg: #ffffff;
+      --font-family: 'Zen Maru Gothic', 'Kiwi Maru', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.8;
+      overflow-x: hidden;
+      word-break: break-word;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ----- ヘッダー ----- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    .logo i { color: var(--secondary-color); }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.2rem;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a { 
+      font-weight: 500; 
+      cursor: pointer; 
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--primary-color); }
+
+    /* ----- メインビジュアル ----- */
+    .hero {
+      padding: 9rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, #eef7f0 0%, #fff9f2 100%);
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: #fff;
+      color: var(--primary-color);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #333;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      font-family: 'Kiwi Maru', serif;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      color: #666;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(121, 168, 136, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(244, 171, 106, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ----- セクション共通 ----- */
+    section {
+      padding: 4.5rem 1.5rem;
+      max-width: 950px;
+      margin: 0 auto;
+      scroll-margin-top: 90px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--primary-color);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background-color: var(--secondary-color);
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ----- コンテンツカード ----- */
+    .concept-card {
+      background-color: var(--card-bg);
+      padding: 2.2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border-left: 6px solid var(--primary-color);
+    }
+
+    .concept-card blockquote {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 500;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 1.2rem;
+      font-family: 'Kiwi Maru', serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 1.8rem;
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      text-align: center;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* ----- ご依頼の流れ ----- */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .step-item {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    .step-number {
+      background: var(--secondary-color);
+      color: #fff;
+      font-weight: 700;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .step-content h4 {
+      font-size: 1.05rem;
+      color: #333;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* 料金案内 */
+    .price-box {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary-color);
+      border-radius: 18px;
+      padding: 1.8rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .price-box h3 {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .price-box p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 14px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .faq-q {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* フォーム */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .form-control, select.form-control {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background-color: #fff;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ページトップへ戻るボタン */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 1500;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    #back-to-top:hover {
+      transform: translateY(-3px);
+      background-color: #648e73;
+    }
+
+    /* SNSリンクエリア */
+    .sns-links {
+      text-align: center;
+      padding-top: 2rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .sns-links p {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+
+    .sns-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .sns-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.3rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .sns-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .sns-instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    .sns-youtube {
+      background-color: #FF0000;
+    }
+
+    .sns-x {
+      background-color: #000000;
+    }
+
+    /* ポリシーリンク＆モーダル */
+    .policy-links {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .policy-links button {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      margin: 0 0.5rem;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .modal-card {
+      background: #fff;
+      width: 100%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-card p, .modal-card ul {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-close-btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background-color: #fff;
+      border-top: 1px solid #eee;
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    /* スマホ表示時の微調整 */
+    @media (max-width: 768px) {
+      header { 
+        padding: 0.8rem 1rem;
+        flex-direction: column; 
+        gap: 0.5rem; 
+        text-align: center; 
+      }
+      nav ul { 
+        gap: 0.8rem; 
+        font-size: 0.85rem;
+        justify-content: center;
+      }
+      .hero {
+        padding-top: 9.5rem;
+      }
+      .concept-card {
+        padding: 1.5rem;
+      }
+      .step-item {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo" onclick="smoothScrollTo('hero')">
+      <i class="fa-solid fa-seedling"></i>
+      <span>おとたね</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a onclick="smoothScrollTo('about')">理念</a></li>
+        <li><a onclick="openComingSoon('顔写真・プロフィール')">プロフィール</a></li>
+        <li><a onclick="openComingSoon('演奏風景')">演奏風景</a></li>
+        <li><a onclick="openComingSoon('過去の演奏実績・お客様の声')">実績・声</a></li>
+        <li><a onclick="smoothScrollTo('flow')">ご依頼の流れ</a></li>
+        <li><a onclick="smoothScrollTo('contact')">お仕事依頼</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- メインビジュアル -->
+  <section id="hero" class="hero">
+    <span class="hero-badge"><i class="fa-solid fa-music"></i> 出張演奏・演奏企画のご依頼</span>
+    <h1>音楽を知るきっかけとなる<br>「種」をまこう！</h1>
+    <p>保育園や老人ホーム、各種イベントへ。笑顔とぬくもりを届ける生演奏をお届けします。</p>
+    <div class="btn-group">
+      <button type="button" onclick="smoothScrollTo('contact')" class="btn btn-primary"><i class="fa-regular fa-envelope"></i> 演奏のご依頼・お見積り</button>
+      <button type="button" onclick="smoothScrollTo('flow')" class="btn btn-secondary"><i class="fa-solid fa-list-check"></i> ご依頼の流れ</button>
+    </div>
+  </section>
+
+  <!-- 理念 -->
+  <section id="about">
+    <h2 class="section-title">私たちの想い</h2>
+    <div class="concept-card">
+      <blockquote>
+        「この『おとたね』という団体は、『音楽を知るきっかけとなる種をまこう！』という思いを込めて名付けました。<br>
+        主に保育園などの児童施設や老人ホームなどの高齢者施設を始めとする、大小様々な会場で演奏会が出来ればと思っています！」
+      </blockquote>
+      <p>小さなお子様からご高齢の方まで、生の音楽を間近で聴く楽しさや感動をお届けいたします。</p>
+    </div>
+  </section>
+
+  <!-- 出演可能施設・内容 -->
+  <section id="services">
+    <h2 class="section-title">出張演奏できる場所</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-child-reaching"></i></div>
+        <h3>保育園・児童施設</h3>
+        <p>一緒に歌ったり手拍子ができる参加型のプログラム。手遊び歌やアニメ曲など明るく楽しい演奏を行います。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+        <h3>高齢者福祉施設</h3>
+        <p>懐かしの童謡・唱歌や昭和の歌謡曲、クラシックの名曲。心に寄り添うやさしい音色をお届けします。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-building-user"></i></div>
+        <h3>地域イベント・サロン</h3>
+        <p>地域の交流会やサロン、ロビーコンサートなど、会場の大きさや客層に合わせた演奏をご用意します。</p>
+      </div>
+    </div>
+
+    <!-- 料金目安の案内 -->
+    <div class="price-box">
+      <h3>💡 演奏料金・ご予算について</h3>
+      <p>ご予算や演奏時間、出演人数に応じて調整が可能です。<br>「まずは予算内でどんなことができるか知りたい」という段階でもお気軽にご相談ください。</p>
+    </div>
+  </section>
+
+  <!-- ご依頼の流れ -->
+  <section id="flow">
+    <h2 class="section-title">ご依頼の流れ</h2>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h4>お問い合わせ</h4>
+          <p>下記フォームより、希望日や施設種別などをお気軽にご連絡ください。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h4>ヒアリング・お打ち合わせ</h4>
+          <p>メールまたはお電話にて、ご希望の曲目や当日のスケジュールのすり合わせを行います。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h4>プログラム・最終確認</h4>
+          <p>当日の演奏曲目リストや準備内容をご提案し、確定いたします。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h4>本番当日</h4>
+          <p>演奏メンバーが現地にお伺いし、準備・セッティングから演奏まで心を込めて行います！</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- よくある質問 -->
+  <section id="faq">
+    <h2 class="section-title">よくあるご質問</h2>
+    <div class="faq-item">
+      <div class="faq-q"><i class="fa-solid fa-circle-question"></i> 会場にピアノがなくても大丈夫ですか？</div>
+      <div class="faq-a">はい、大丈夫です！電子ピアノなどの機材持参での訪問も可能ですので、事前にご相談ください。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><i class="fa-solid fa-circle-question"></i> 演奏時間や曲目のリクエストはできますか？</div>
+      <div class="faq-a">もちろんです。30分〜60分程度など施設のご都合に合わせます。また「〇〇の曲を演奏してほしい」というリクエストも歓迎です。</div>
+    </div>
+  </section>
+
+  <!-- お仕事依頼フォーム (Formspree連携) -->
+  <section id="contact">
+    <h2 class="section-title">お仕事・演奏のご依頼</h2>
+    <div class="concept-card">
+      <form action="https://formspree.io/f/moejbrro" method="POST">
+        <div class="form-group">
+          <label>お名前 / 貴団体名・施設名 <span style="color:red;">*</span></label>
+          <input type="text" name="name" class="form-control" placeholder="例：〇〇保育園 / 山田太郎" required>
+        </div>
+        <div class="form-group">
+          <label>メールアドレス <span style="color:red;">*</span></label>
+          <input type="email" name="email" class="form-control" placeholder="example@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>ご依頼の対象施設・会場</label>
+          <select name="facility" class="form-control">
+            <option>保育園・幼稚園・児童施設</option>
+            <option>老人ホーム・高齢者福祉施設</option>
+            <option>地域イベント・自治体サロン</option>
+            <option>その他（個人のご依頼など）</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ピアノの有無</label>
+          <select name="piano" class="form-control">
+            <option>グランドピアノ・アップライトピアノあり</option>
+            <option>電子ピアノあり</option>
+            <option>ピアノなし（持参希望）</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>開催希望日・ご予算・ご要望など</label>
+          <textarea name="message" class="form-control" placeholder="例：クリスマス会で40分程度演奏してほしい。予算は〇〇円程度で相談したい、など。"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; border: none; font-size: 1rem; cursor: pointer; padding: 1rem;">
+          <i class="fa-paper-plane" style="margin-right:0.5rem;"></i> この内容で依頼・相談する
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ページトップへ戻るボタン -->
+  <button id="back-to-top" type="button" onclick="smoothScrollTo('hero')" title="トップへ戻る">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- SNSリンクエリア -->
+  <div class="sns-links">
+    <p>公式SNS</p>
+    <div class="sns-icons">
+      <a href="https://www.instagram.com/ototane_8?mdxt=ZGNpNnZ2aHVpN3Zt&utm_source=qr" target="_blank" rel="noopener noreferrer" class="sns-btn sns-instagram" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <button type="button" onclick="openComingSoon('YouTube公式チャンネル')" class="sns-btn sns-youtube" title="YouTube">
+        <i class="fa-brands fa-youtube"></i>
+      </button>
+      <button type="button" onclick="openComingSoon('X（旧Twitter）公式アカウント')" class="sns-btn sns-x" title="X (旧Twitter)">
+        <i class="fa-brands fa-x-twitter"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ポリシーリンクエリア -->
+  <div class="policy-links">
+    <button type="button" onclick="openModal('privacy')">プライバシーポリシー</button> | 
+    <button type="button" onclick="openModal('sitepolicy')">サイトポリシー</button>
+  </div>
+
+  <!-- Coming Soon モーダル -->
+  <div id="modal-coming-soon" class="modal-overlay" onclick="closeComingSoon()">
+    <div class="modal-card" onclick="event.stopPropagation()" style="text-align: center;">
+      <i class="fa-solid fa-person-digging" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+      <h3 id="coming-soon-title">準備中</h3>
+      <p>現在こちらのページは鋭意制作中です。<br>公開をどうぞお楽しみに！</p>
+      <button type="button" class="modal-close-btn" onclick="closeComingSoon()">もどる</button>
+    </div>
+  </div>
+
+  <!-- プライバシーポリシー モーダル -->
+  <div id="modal-privacy" class="modal-overlay" onclick="closeModal('privacy')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h3>プライバシーポリシー</h3>
+      <p>音楽団体「おとたね」（以下「当団体」）は、本Webサイト上で取得する個人情報の取り扱いについて、以下の通り定めます。</p>
+      <p><strong>1. 個人情報の収集と目的</strong><br>お問い合わせフォーム等を通じてご提供いただいた個人情報（お名前、メールアドレス、電話番号等）は、ご依頼に関するご連絡および案内目的のみに使用いたします。</p>
+      <p><strong>2. 第三者への開示・提供</strong><br>法令に基づく場合を除き、ご本人の同意を得ずに第三者に個人情報を提供することはありません。</p>
+      <button type="button" class="modal-close-btn" onclick="closeModal('privacy')">閉じる</button>
+    </div>
+  </div>
+
+  <!-- サイトポリシー モーダル -->
+  <div id="modal-sitepolicy" class="modal-overlay" onclick="closeModal('sitepolicy')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h3>サイトポリシー</h3>
+      <p>本Webサイト（以下「当サイト」）のコンテンツ利用について、以下の通り定めます。</p>
+      <p><strong>1. 著作権について</strong><br>当サイトに掲載されている文章、画像、音楽等のコンテンツの著作権は、当団体または権利保持者に帰属します。</p>
+      <p><strong>2. 免責事項</strong><br>当サイトに情報を掲載する際には細心の注意を払っておりますが、掲載内容の正確性や安全性を保証するものではありません。</p>
+      <button type="button" class="modal-close-btn" onclick="closeModal('sitepolicy')">閉じる</button>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 音楽団体 おとたね All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    /* スムーズスクロール関数 */
+    function smoothScrollTo(targetId) {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const headerHeight = 90;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    /* Coming Soon モーダル制御 */
+    function openComingSoon(pageName) {
+      document.getElementById('coming-soon-title').innerText = pageName;
+      document.getElementById('modal-coming-soon').style.display = 'flex';
+    }
+    function closeComingSoon() {
+      document.getElementById('modal-coming-soon').style.display = 'none';
+    }
+
+    /* 各種ポリシー モーダル制御 */
+    function openModal(type) {
+      document.getElementById('modal-' + type).style.display = 'flex';
+    }
+    function closeModal(type) {
+      document.getElementById('modal-' + type).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
